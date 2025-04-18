@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Tooltip} from 'react-tooltip';
-import {bandsDict} from './bandsDict';
+import {bandsArr} from './bandsArr';
 const Encyclopedy = () => {
 let [letter, setLetter]=useState()
   let [bands, setBands]=useState([])
@@ -8,14 +8,14 @@ let [letter, setLetter]=useState()
   let [tracks, setTracks]=useState([])
   function handleLetter(e){
     setLetter(e.target.value)
-    setBands(bandsDict.find(item=>item.name===e.target.value).bands)
+    setBands(bandsArr.find(item=>item.name===e.target.value).bands)
   }
   function handleBand(e){
     setBandName(e.target.value)
   }
 
 useEffect(() =>{
-fetch(`https://raw.githubusercontent.com/JBreitenbr/Spoti-Data/refs/heads/main/TracksData/${bandName}.json`)
+fetch(`https://raw.githubusercontent.com/JBreitenbr/Spoti-Data/refs/heads/main/Chansons/${bandName}.json`)
       .then((res) => res.json())
       .then((data) => setTracks(data))
   },[bandName]);
@@ -36,7 +36,7 @@ return (
 <h3 className="text-white text-center text-3xl h-32 pt-8 mb-6 bg" >My Own Private Spotify</h3>
       <select className="mx-8 sm:mx-32 sm:h-6 sm:text-xl" onChange={handleLetter}>
       <option>--Select Letter--</option>
-        {bandsDict.map(item=>
+        {bandsArr.map(item=>
           <option key={item.name}>{item.name}</option>
         )}
       </select>
